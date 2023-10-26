@@ -1,0 +1,41 @@
+version: "3"
+
+# Menjembatani todo-api ngan database
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  todo-api:
+    build: .
+    networks:
+      - app-tier
+    ports:
+      - "8010:8010"
+    depends_on:
+      - dbpgsql
+    volumes:
+      - ".:/todo-api/src/app/"
+  dbpgsql:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    networks:
+      - app-tier
+# Diterminal, jalankan perintah docker build .
+# Diterminal, jalankan perintah docker compose up
+# Diterminal, jalankan perintah docker container ls -> untuk cek containernya
+# Diterminal, jalankan perintah sudo docker exec -it <id container> sh
+# Setelah masuk di direktori docker, diiterminal, jalankan perintah ls
+
+# Akses Sequelize
+# Diterminal, jalankan perintah docker container ls
+# Diterminal, jalankan perintah sudo docker exec -it <id container> sh
+# Diterminal, jalankan perintah npx sequelize-cli db:migrate
+
