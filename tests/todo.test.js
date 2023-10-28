@@ -7,7 +7,7 @@ test("Get all list todo", (done) => {
     .expect("Content-Type", /json/)
     .expect(200)
     .then((response) => {
-      expect(response.body.data.length).toBe(2);
+      expect(response.body.data.length).toBe(3);
       done();
     })
     .catch(done);
@@ -27,7 +27,7 @@ test("Get detail todo", (done) => {
 
 test("Create todo", (done) => {
   const newTodo = {
-    title: "Todo",
+    title: "Todo 6",
   };
 
   request(app)
@@ -43,9 +43,9 @@ test("Create todo", (done) => {
 });
 
 test("Update todo", (done) => {
-  const id = 1;
+  const id = 4;
   const updateTodo = {
-    title: "Todo 1 Updated",
+    title: "Todo 4 Updated",
   };
 
   request(app)
@@ -56,14 +56,14 @@ test("Update todo", (done) => {
     .then((response) => {
       console.log(response.body);
       expect(response.body.message).toBe("Todo updated successfully!");
-      expect(response.body.todo).toHaveProperty("title", "Todo 1 Updated");
+      expect(response.body.todo).toHaveProperty("title", "Todo 4 Updated");
       done();
     })
     .catch(done);
 });
 
 test("Delete todo", (done) => {
-  const id = 3;
+  const id = 5;
 
   request(app)
     .delete(`/api/todo/${id}`)
